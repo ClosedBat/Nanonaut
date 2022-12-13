@@ -20,6 +20,7 @@
         var BACKGROUND_WIDTH=1000;
         var NANONAUT_NR_FRAMES_PER_ROW=5;
         var NANONAUT_NR_ANIMATION_FRAMES=7;
+        var NANONAUT_ANIMATION_SPEED=3;
         //SETUP
         var canvas = document.createElement('canvas');
         var c = canvas.getContext('2d');
@@ -50,6 +51,7 @@
         function start() {
             window.requestAnimationFrame(mainLoop);
         }
+        var gameFrameCounter=0;
 
         window.addEventListener('load', start)
 
@@ -73,6 +75,7 @@
         }
         //UPDATE
         function update() {
+            gameFrameCounter=gameFrameCounter+1
             nanonautX=nanonautX+NANONAUT_X_SPEED;
             if (spaceKeyIsPressed && !nanonautIsInTheAir) {
                 nanonautYSpeed= -NANONAUT_JUMP_SPEED;
@@ -87,6 +90,7 @@
                 nanonautIsInTheAir=false;
             }
             //Upadate Animation
+            if((gameFrameCounter%NANONAUT_ANIMATION_SPEED)===0)
             nanonautFrameNr=nanonautFrameNr+1;
             if (nanonautFrameNr>=NANONAUT_NR_FRAMES_PER_ROW) {
                 nanonautFrameNr=0;
