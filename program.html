@@ -13,14 +13,14 @@
         var Nanonaut_WIDTH = 181;
         var Nanonaut_HEIGHT = 229;
         var GROUND_Y = 540;
-        var NANONAUT_Y_ACCELERATION=1;
-        var SPACE_KEYCODE=32;
-        var NANONAUT_JUMP_SPEED=20;
+        var NANONAUT_Y_ACCELERATION = 1;
+        var SPACE_KEYCODE = 32;
+        var NANONAUT_JUMP_SPEED = 20;
         var NANONAUT_X_SPEED = 5
-        var BACKGROUND_WIDTH=1000;
-        var NANONAUT_NR_FRAMES_PER_ROW=5;
-        var NANONAUT_NR_ANIMATION_FRAMES=7;
-        var NANONAUT_ANIMATION_SPEED=3;
+        var BACKGROUND_WIDTH = 1000;
+        var NANONAUT_NR_FRAMES_PER_ROW = 5;
+        var NANONAUT_NR_ANIMATION_FRAMES = 7;
+        var NANONAUT_ANIMATION_SPEED = 3;
         //SETUP
         var canvas = document.createElement('canvas');
         var c = canvas.getContext('2d');
@@ -33,25 +33,25 @@
         var backgroundImage = new Image();
         backgroundImage.src = 'background.png';
 
-        var nanonautX=CANVAS_WIDTH/2;
-        var nanonautY=GROUND_Y-Nanonaut_HEIGHT;
+        var nanonautX = CANVAS_WIDTH / 2;
+        var nanonautY = GROUND_Y - Nanonaut_HEIGHT;
 
-        var nanonautYSpeed=0;
-        var nanonautIsInTheAir=false;
+        var nanonautYSpeed = 0;
+        var nanonautIsInTheAir = false;
 
-        var spaceKeyIsPressed=false;
-        var nanonautFrameNr=0;
+        var spaceKeyIsPressed = false;
+        var nanonautFrameNr = 0;
 
         var cameraX = 0;
         var cameraY = 0;
-        
+
         window.addEventListener('keydown', onKeyDown);
         window.addEventListener('keyup', onKeyUp);
 
         function start() {
             window.requestAnimationFrame(mainLoop);
         }
-        var gameFrameCounter=0;
+        var gameFrameCounter = 0;
 
         window.addEventListener('load', start)
 
@@ -63,66 +63,66 @@
         }
         //PLAYER INPUT
         function onKeyDown(event) {
-            if (event.keyCode===SPACE_KEYCODE) {
-                spaceKeyIsPressed=true;
+            if (event.keyCode === SPACE_KEYCODE) {
+                spaceKeyIsPressed = true;
             }
-        
+
         }
         function onKeyUp(event) {
-            if (event.keyCode===SPACE_KEYCODE) {
-                spaceKeyIsPressed=false;
+            if (event.keyCode === SPACE_KEYCODE) {
+                spaceKeyIsPressed = false;
             }
         }
         //UPDATE
         function update() {
-            gameFrameCounter=gameFrameCounter+1
-            nanonautX=nanonautX+NANONAUT_X_SPEED;
+            gameFrameCounter = gameFrameCounter + 1
+            nanonautX = nanonautX + NANONAUT_X_SPEED;
             if (spaceKeyIsPressed && !nanonautIsInTheAir) {
-                nanonautYSpeed= -NANONAUT_JUMP_SPEED;
-                nanonautIsInTheAir=true;
+                nanonautYSpeed = -NANONAUT_JUMP_SPEED;
+                nanonautIsInTheAir = true;
             }
             //Update Nanonaut.
-            nanonautY=nanonautY + nanonautYSpeed;
-            nanonautYSpeed=nanonautYSpeed+NANONAUT_Y_ACCELERATION;
-            if (nanonautY > (GROUND_Y-Nanonaut_HEIGHT)) {
-                nanonautY=GROUND_Y-Nanonaut_HEIGHT;
-                nanonautYSpeed=0;
-                nanonautIsInTheAir=false;
+            nanonautY = nanonautY + nanonautYSpeed;
+            nanonautYSpeed = nanonautYSpeed + NANONAUT_Y_ACCELERATION;
+            if (nanonautY > (GROUND_Y - Nanonaut_HEIGHT)) {
+                nanonautY = GROUND_Y - Nanonaut_HEIGHT;
+                nanonautYSpeed = 0;
+                nanonautIsInTheAir = false;
             }
             //Upadate Animation
-            if((gameFrameCounter%NANONAUT_ANIMATION_SPEED)===0)
-            nanonautFrameNr=nanonautFrameNr+1;
-            if (nanonautFrameNr>=NANONAUT_NR_FRAMES_PER_ROW) {
-                nanonautFrameNr=0;
+            if ((gameFrameCounter % NANONAUT_ANIMATION_SPEED) === 0)
+                nanonautFrameNr = nanonautFrameNr + 1;
+            if (nanonautFrameNr >= NANONAUT_NR_FRAMES_PER_ROW) {
+                nanonautFrameNr = 0;
             }
             //Update camera
-            cameraX=nanonautX-150;
+            cameraX = nanonautX - 150;
         }
         //DRAWING
         function draw() {
 
             // Draw the sky.
-            c.fillStyle='LightSkyBlue';
-            c.fillRect(0, 0, CANVAS_WIDTH, GROUND_Y -40)
+            c.fillStyle = 'LightSkyBlue';
+            c.fillRect(0, 0, CANVAS_WIDTH, GROUND_Y - 40)
 
             //Draw the background
-            var backgroundX=-(cameraX % BACKGROUND_WIDTH);
+            var backgroundX = -(cameraX % BACKGROUND_WIDTH);
             c.drawImage(backgroundImage, backgroundX, -210);
-            c.drawImage(backgroundImage, backgroundX+BACKGROUND_WIDTH, -210)
+            c.drawImage(backgroundImage, backgroundX + BACKGROUND_WIDTH, -210)
 
             //Draw the ground.
-            c.fillStyle='ForestGreen';
-            c.fillRect(0, GROUND_Y-40, CANVAS_WIDTH, CANVAS_HEIGHT-GROUND_Y+40)
+            c.fillStyle = 'ForestGreen';
+            c.fillRect(0, GROUND_Y - 40, CANVAS_WIDTH, CANVAS_HEIGHT - GROUND_Y + 40)
 
             //Draw the Nanonaut
-            var nanonautSpriteSheetRow=Math.floor(nanonautFrameNr/
-            NANONAUT_NR_FRAMES_PER_ROW);
-            var nanonautSpriteSheetColumn=nanonautFrameNr % NANONAUT_NR_FRAMES_PER_ROW;
-            var nanonautSpriteSheetX=nanonautSpriteSheetColumn*Nanonaut_WIDTH;
-            var nanonautSpriteSheetY=nanonautSpriteSheetRow*Nanonaut_HEIGHT
-            c.drawImage(nanonautImage, nanonautSpriteSheetX, nanonautSpriteSheetY, 
-            Nanonaut_WIDTH, Nanonaut_HEIGHT, nanonautX-cameraX, nanonautY-cameraY,
-            Nanonaut_WIDTH, Nanonaut_HEIGHT)      
+            var nanonautSpriteSheetRow = Math.floor(nanonautFrameNr /
+                NANONAUT_NR_FRAMES_PER_ROW);
+            var nanonautSpriteSheetColumn = nanonautFrameNr % NANONAUT_NR_FRAMES_PER_ROW;
+            var nanonautSpriteSheetX = nanonautSpriteSheetColumn * Nanonaut_WIDTH;
+            var nanonautSpriteSheetY = nanonautSpriteSheetRow * Nanonaut_HEIGHT
+            c.drawImage(nanonautImage, nanonautSpriteSheetX, nanonautSpriteSheetY,
+                Nanonaut_WIDTH, Nanonaut_HEIGHT, nanonautX - cameraX, nanonautY - cameraY,
+                Nanonaut_WIDTH, Nanonaut_HEIGHT)
         }
     </script>
 </body>
