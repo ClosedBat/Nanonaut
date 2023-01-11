@@ -44,7 +44,7 @@
         var bushY0=GROUND_Y-100
         var bushX1=750
         var bushY1=GROUND_Y-90
-
+        var bushXCoordinates=[550, 750, 1000,1200];
         var nanonautYSpeed = 0;
         var nanonautIsInTheAir = false;
 
@@ -134,10 +134,9 @@
                 Nanonaut_WIDTH, Nanonaut_HEIGHT, nanonautX - cameraX, nanonautY - cameraY,
                 Nanonaut_WIDTH, Nanonaut_HEIGHT)
             //Draw Bush #1
-
-
-            c.drawImage(bush1Image, bushX0, bushY0)
-            c.drawImage(bush1Image, bushX1, bushY1)
+            for (var i = 0; i < bushXCoordinates.length; i++) {
+                c.drawImage(bush1Image, bushXCoordinates[i] - cameraX, GROUND_Y - 100 - cameraY);
+            }
         }
     </script>
 </body>
