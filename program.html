@@ -20,7 +20,8 @@
         var BACKGROUND_WIDTH = 1000;
         var NANONAUT_NR_FRAMES_PER_ROW = 5;
         var NANONAUT_NR_ANIMATION_FRAMES = 7;
-        var NANONAUT_ANIMATION_SPEED = 3;
+        var NANONAUT_ANIMATION_SPEED = 5;
+
         //SETUP
         var canvas = document.createElement('canvas');
         var c = canvas.getContext('2d');
@@ -36,11 +37,20 @@
         var nanonautX = CANVAS_WIDTH / 2;
         var nanonautY = GROUND_Y - Nanonaut_HEIGHT;
 
+        var bush1Image= new Image();
+        bush1Image.src='bush1.png';
+        
+        var bushX0=550
+        var bushY0=GROUND_Y-100
+        var bushX1=750
+        var bushY1=GROUND_Y-90
+
         var nanonautYSpeed = 0;
         var nanonautIsInTheAir = false;
 
         var spaceKeyIsPressed = false;
         var nanonautFrameNr = 0;
+        var bushFrameNr=5;
 
         var cameraX = 0;
         var cameraY = 0;
@@ -123,6 +133,11 @@
             c.drawImage(nanonautImage, nanonautSpriteSheetX, nanonautSpriteSheetY,
                 Nanonaut_WIDTH, Nanonaut_HEIGHT, nanonautX - cameraX, nanonautY - cameraY,
                 Nanonaut_WIDTH, Nanonaut_HEIGHT)
+            //Draw Bush #1
+
+
+            c.drawImage(bush1Image, bushX0, bushY0)
+            c.drawImage(bush1Image, bushX1, bushY1)
         }
     </script>
 </body>
